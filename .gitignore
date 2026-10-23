@@ -1,0 +1,23 @@
+market_listings*.csv
+cleaned_tractors*.csv
+notebooks/outputs/
+*.cbm
+*.joblib
+
+# Local environments and editor artefacts
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.DS_Store
+.env
+.env.*
+.Rhistory
+.RData
+
+market_listings*.csv
+cleaned_tractors*.csv
+notebooks/outputs/
+*.cbm
+*.joblib
