@@ -1,38 +1,57 @@
-# Auction-Price Prediction
-### Explaining and predicting realised used-equipment prices
+# Predicting Used-Tractor Auction Prices
 
-**Question:** How much can nonlinear models improve on a transparent regression benchmark when auction data contain repeated scrapes, multiple currencies and sparse specifications?
+**How much should a used tractor sell for, given its age, usage and specifications?**
 
-**Finding:** CatBoost reduced final-test median absolute percentage error from **40.2% to 32.0%**, an **8.2 percentage-point improvement**. **47.6%** of predictions were within 30% of the realised price.
+This MSc dissertation uses auction records to estimate sale prices across different makes, model series and currencies. The first challenge was constructing a reliable set of actual sales from repeated listings. The second was testing whether a nonlinear model improved on a transparent regression benchmark.
 
-![Final test model comparison](docs/assets/test-comparison.png)
+I reduced **354,607 listings to 22,857 unique realised sales** and compared several models. On **3,429 unseen sales**, CatBoost reduced the **median absolute percentage error from 40.2% to 32.0%** versus quadratic regression. Performance was much weaker for rare or unseen tractor model series than for familiar ones.
 
-[**Results and uncertainty**](reports/RESULTS.md) · [**Executed notebooks**](notebooks/) · [**Dissertation**](reports/dissertation.pdf)
+[**Results and error analysis**](reports/RESULTS.md) · [**MSc dissertation**](reports/dissertation.pdf) · [**Analysis notebooks**](notebooks/)
 
-## The work behind the model
+## What I did
 
-- Reduced **354,607 listings to 22,857 unique realised sales**, with explicit sample-construction rules.
-- Compared regression, a decision tree, XGBoost and CatBoost; selected models using validation data.
-- Used a **70/15/15 train/validation/test split**, stratified by currency and within-currency price quintile.
-- Learned rare-category rules, imputations and within-currency target transformations from training data.
-- Returned predictions to native price units and examined error by currency and model-series support.
+- Defined the sale sample, removed duplicate/invalid records and examined missing specifications.
+- Built predictors from manufacture year, usage, make/model, country, currency, drive and equipment indicators.
+- Compared regression, a decision tree, XGBoost and CatBoost using separate training, validation and test samples.
+- Evaluated errors in native price units and examined where limited training examples made predictions less reliable.
 
-Horsepower and transmission were explored but excluded from the final models because coverage was too sparse. The current predictors include manufacture year, usage, make, model series, country, currency, drive and equipment indicators.
+## Results in context
 
-## Run the analysis
+Median absolute percentage error is the median of the individual absolute percentage errors; lower is better. The **8.2 percentage-point reduction** is a **20.5% relative reduction in that error measure**, not a 20.5% rise in sale prices or a measure of business savings.
 
-Python 3.10+:
+| Test measure | CatBoost | Quadratic regression |
+|---|---:|---:|
+| Median absolute percentage error | **32.0%** | 40.2% |
+| Predictions within 30% of actual sale price | **47.6%** | See dissertation |
+
+| Model-series support in training | Test sales | CatBoost median percentage error |
+|---|---:|---:|
+| Common model series | 1,605 | **22.6%** |
+| Rare or unseen series | 1,824 | **44.0%** |
+
+The lower overall error does not make every valuation reliable. [Bootstrap uncertainty and currency-specific interpretation](reports/RESULTS.md).
+
+![Final-test model comparison](docs/assets/test-comparison.png)
+
+## Modelling details
+
+The 70/15/15 split is stratified by currency and within-currency price group. Rare-category rules, missing-value handling and target transformations are learned from training data. After model selection, CatBoost and the quadratic comparator are refit on training plus validation data. Predictions are converted back to native currencies before evaluation.
+
+Horsepower and transmission were investigated but excluded from the final models because too many records lacked them. CatBoost handles nonlinear effects and categorical information; its greater complexity is assessed against the simpler benchmark rather than assumed useful.
+
+## Inspect or run
+
+The executed notebooks and dissertation are readable without the source data. Full retraining needs the original listings dataset, which is not redistributed here. [Input instructions](data/README.md).
 
 ```bash
 python -m pip install -r requirements.txt
 jupyter lab
 ```
 
-Open `notebooks/01_data_cleaning_and_eda.ipynb`, then `notebooks/02_model_training_and_testing.ipynb`. See [data/README.md](data/README.md) for the required source filename and working directory. Source listings are supplied separately and are not redistributed here; the saved notebook outputs and dissertation can be inspected without them.
+Run `notebooks/01_data_cleaning_and_eda.ipynb`, then `notebooks/02_model_training_and_testing.ipynb` using the working-directory instructions in the data guide.
 
-## Why the remaining error matters
+## Scope
 
-CatBoost's typical error is still substantial. Test MedAPE was **22.6%** for common model series and **44.0%** for rare or unseen series. There is no transaction date, so the random test split does not measure future-market performance or separate depreciation from market-wide price changes. See [the result note](reports/RESULTS.md).
+Transaction dates are unavailable. This random split tests generalisation within the observed sample, not future-market prices or price drift. Raw monetary errors across different currencies cannot meaningfully be pooled. Feature importance is predictive dependence, not a causal price premium.
 
-**Author:** Fakhruddin Hakim Hussain · MSc Statistics with Data Science, University of Edinburgh  
-[Portfolio](https://github.com/Fakhruddin12)
+**Author:** Fakhruddin Hakim Hussain · MSc Statistics with Data Science, University of Edinburgh · [Portfolio](https://github.com/Fakhruddin12)
