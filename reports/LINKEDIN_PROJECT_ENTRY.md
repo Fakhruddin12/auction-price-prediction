@@ -19,15 +19,15 @@ Python; Machine Learning; Regression Analysis; Data Cleaning; Feature Engineerin
 https://github.com/Fakhruddin12/auction-price-prediction
 
 ## Media attachment
-- File: Auction_Price_Project_Report.pdf
-- Title: Used-Tractor Auction Prices — Methods and Evaluation
-- Description: Plain research report covering sale-sample construction, currency-scaled targets, validation selection, quadratic controls, paired bootstrap intervals and currency/rare-series error analysis. Separates restored-model replay from retraining and future-market validation.
+- File: Auction_Price_Dissertation.pdf
+- Title: Original MSc Dissertation
+- Description: Original submitted dissertation, including the study methodology, results, discussion and references. Later portfolio verification is documented separately in the repository.
 
 ## Dates and association
 Enter actual project dates from your records. The report assembly date and data validity cutoff are not project completion dates. Associate with the MSc only using the dissertation's actual academic record.
 
 ## Public report link
-https://github.com/Fakhruddin12/auction-price-prediction/blob/master/reports/PROJECT_REPORT.pdf
+https://github.com/Fakhruddin12/auction-price-prediction/blob/master/reports/dissertation.pdf
 
 ## Evidence notes — not part of the pasted description
 - Test split: 3,429 records; train 15,999; validation 3,429. Random stratification by currency and within-currency log-price quintile, seed 42.
@@ -37,3 +37,6 @@ https://github.com/Fakhruddin12/auction-price-prediction/blob/master/reports/PRO
 - 135 test predictor profiles also occur in initial training; this does not prove identical physical assets, but identities are not available for grouped validation.
 - Both archived fitted models reproduce all 3,429 saved predictions each; nine checks and all four 10,000-resample bootstrap intervals pass. Raw cleaning and full selection were not rerun.
 - No valuation savings, causal equipment premium, live deployment or new future-sale evaluation is claimed.
+
+## Media decision — 1 November 2026
+Use the original dissertation PDF as LinkedIn media. The separate portfolio review summary is supporting audit material, not the attachment. Later replay checks must not be presented as if they appear in the submitted dissertation.

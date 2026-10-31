@@ -1,6 +1,6 @@
 # Predicting Used-Tractor Auction Prices
 
-[**Project report (PDF)**](reports/PROJECT_REPORT.pdf) · [**Research decision and evidence limits**](docs/RESEARCH_DECISION.md)
+[**Original MSc dissertation (PDF)**](reports/dissertation.pdf) · [**Research decision and evidence limits**](docs/RESEARCH_DECISION.md)
 
 On 3,429 held-out records, CatBoost MedAPE is 31.96% versus quadratic regression 40.18% (8.22 percentage points, 20.45% relative reduction). Paired 10,000-resample CI for the difference is 6.60–10.06 points. Only 47.6% of predictions are within 30% of recorded prices.
 
@@ -61,3 +61,7 @@ Run `notebooks/01_data_cleaning_and_eda.ipynb`, then `notebooks/02_model_trainin
 Transaction dates are unavailable. This random split tests generalisation within the observed sample, not future-market prices or price drift. Physical-asset identities cannot be verified; 135 test predictor profiles also occur in initial training. Usage hours are missing in 25.1% of cleaned records (74.9% is availability). Raw monetary errors across different currencies cannot meaningfully be pooled. Feature importance is predictive dependence, not a causal price premium.
 
 **Author:** Fakhruddin Hakim Hussain · MSc Statistics with Data Science, University of Edinburgh · [Portfolio](https://github.com/Fakhruddin12)
+
+## Report used for LinkedIn
+
+The original submitted [dissertation](reports/dissertation.pdf) is the primary project PDF. The separate [portfolio review summary](reports/PROJECT_REVIEW_SUMMARY.pdf) records later checks and limitations. The stable `reports/PROJECT_REPORT.pdf` link now resolves to the original dissertation.
