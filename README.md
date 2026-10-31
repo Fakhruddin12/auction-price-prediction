@@ -1,10 +1,16 @@
 # Predicting Used-Tractor Auction Prices
 
+[**Project report (PDF)**](reports/PROJECT_REPORT.pdf) · [**Research decision and evidence limits**](docs/RESEARCH_DECISION.md)
+
+On 3,429 held-out records, CatBoost MedAPE is 31.96% versus quadratic regression 40.18% (8.22 percentage points, 20.45% relative reduction). Paired 10,000-resample CI for the difference is 6.60–10.06 points. Only 47.6% of predictions are within 30% of recorded prices.
+
+**Research decision:** Retain CatBoost as the stronger cross-sectional benchmark; require dated, asset-disjoint validation before future-market valuation claims.
+
 **How much should a used tractor sell for, given its age, usage and specifications?**
 
 This MSc dissertation uses auction records to estimate sale prices across different makes, model series and currencies. The first challenge was constructing a reliable set of actual sales from repeated listings. The second was testing whether a nonlinear model improved on a transparent regression benchmark.
 
-I reduced **354,607 listings to 22,857 unique realised sales** and compared several models. On **3,429 unseen sales**, CatBoost reduced the **median absolute percentage error from 40.2% to 32.0%** versus quadratic regression. Performance was much weaker for rare or unseen tractor model series than for familiar ones.
+I reduced **354,607 listings to 22,857 distinct recorded sales** and compared several models. On **3,429 held-out sale records**, CatBoost reduced the **median absolute percentage error from 40.2% to 32.0%** versus quadratic regression. Performance was much weaker for rare or unseen tractor model series than for familiar ones.
 
 [**Results and error analysis**](reports/RESULTS.md) · [**MSc dissertation**](reports/dissertation.pdf) · [**Analysis notebooks**](notebooks/)
 
@@ -35,13 +41,13 @@ The lower overall error does not make every valuation reliable. [Bootstrap uncer
 
 ## Modelling details
 
-The 70/15/15 split is stratified by currency and within-currency price group. Rare-category rules, missing-value handling and target transformations are learned from training data. After model selection, CatBoost and the quadratic comparator are refit on training plus validation data. Predictions are converted back to native currencies before evaluation.
+The 70/15/15 split is stratified by currency and within-currency price group. Selection minimises scaled-log-price MAE, rather than native-price MedAPE. Rare-category rules, missing-value handling and target transformations are learned from training data. After model selection, CatBoost and the quadratic comparator are refit on training plus validation data. Predictions are converted back to native currencies before evaluation.
 
 Horsepower and transmission were investigated but excluded from the final models because too many records lacked them. CatBoost handles nonlinear effects and categorical information; its greater complexity is assessed against the simpler benchmark rather than assumed useful.
 
 ## Inspect or run
 
-The executed notebooks and dissertation are readable without the source data. Full retraining needs the original listings dataset, which is not redistributed here. [Input instructions](data/README.md).
+The dissertation and original executed notebooks are readable in the pinned source version. The revised training notebook contains source only, with outputs and execution state removed; dependency installation belongs in the environment setup step. Full retraining needs the original listings dataset, which is not redistributed here. [Input instructions](data/README.md).
 
 ```bash
 python -m pip install -r requirements.txt
@@ -52,6 +58,6 @@ Run `notebooks/01_data_cleaning_and_eda.ipynb`, then `notebooks/02_model_trainin
 
 ## Scope
 
-Transaction dates are unavailable. This random split tests generalisation within the observed sample, not future-market prices or price drift. Raw monetary errors across different currencies cannot meaningfully be pooled. Feature importance is predictive dependence, not a causal price premium.
+Transaction dates are unavailable. This random split tests generalisation within the observed sample, not future-market prices or price drift. Physical-asset identities cannot be verified; 135 test predictor profiles also occur in initial training. Usage hours are missing in 25.1% of cleaned records (74.9% is availability). Raw monetary errors across different currencies cannot meaningfully be pooled. Feature importance is predictive dependence, not a causal price premium.
 
 **Author:** Fakhruddin Hakim Hussain · MSc Statistics with Data Science, University of Edinburgh · [Portfolio](https://github.com/Fakhruddin12)

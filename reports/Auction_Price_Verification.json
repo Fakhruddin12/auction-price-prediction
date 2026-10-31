@@ -1,0 +1,174 @@
+{
+  "checked_on": "2026-10-31",
+  "source_commit": "97773747835a98cea5b13d818cd37bd17b7cfa3a",
+  "restored_model_prediction_checks": 6858,
+  "full_hyperparameter_search_rerun": false,
+  "raw_listings_cleaning_rerun": false,
+  "bootstrap_replicates_recomputed": 10000,
+  "evidence_checks": [
+    {
+      "name": "test_split_matches_saved_actual_prices",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "restored_CatBoost_matches_all_saved_prices",
+      "passed": true,
+      "detail": {
+        "n": 3429,
+        "max_absolute_difference_native_units": 5.820766091346741e-11
+      }
+    },
+    {
+      "name": "restored_quadratic_matches_all_saved_prices",
+      "passed": true,
+      "detail": {
+        "n": 3429,
+        "max_absolute_difference_native_units": 5.820766091346741e-11
+      }
+    },
+    {
+      "name": "bootstrap_interval_0",
+      "passed": true,
+      "detail": {
+        "recomputed_ci95": [
+          30.564487344625718,
+          33.37720195826132
+        ]
+      }
+    },
+    {
+      "name": "bootstrap_interval_1",
+      "passed": true,
+      "detail": {
+        "recomputed_ci95": [
+          38.76184494030703,
+          42.20058403441689
+        ]
+      }
+    },
+    {
+      "name": "bootstrap_interval_2",
+      "passed": true,
+      "detail": {
+        "recomputed_ci95": [
+          6.595728101997999,
+          10.05865323363574
+        ]
+      }
+    },
+    {
+      "name": "bootstrap_interval_3",
+      "passed": true,
+      "detail": {
+        "recomputed_ci95": [
+          16.705790805948308,
+          24.23299283997858
+        ]
+      }
+    },
+    {
+      "name": "cleaned_data_agrees_across_archived_versions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "documented_split_sizes",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "evidence_checks_passed": 9,
+  "metrics": {
+    "CatBoost_MedAPE_pct": 31.95783959899342,
+    "quadratic_MedAPE_pct": 40.17503396723333,
+    "improvement_percentage_points": 8.217194368239912,
+    "relative_error_reduction_percent": 20.453484556956035,
+    "within20_percent": 34.2082239720035,
+    "within30_percent": 47.59405074365704
+  },
+  "bootstrap_table": [
+    {
+      "metric": "CatBoost MedAPE (%)",
+      "estimate": 31.95783959899342,
+      "CI_2.5pct": 30.56448734462572,
+      "CI_97.5pct": 33.377201958261324
+    },
+    {
+      "metric": "Quadratic regression MedAPE (%)",
+      "estimate": 40.17503396723333,
+      "CI_2.5pct": 38.76184494030703,
+      "CI_97.5pct": 42.2005840344169
+    },
+    {
+      "metric": "MedAPE improvement (percentage points)",
+      "estimate": 8.217194368239912,
+      "CI_2.5pct": 6.5957281019979845,
+      "CI_97.5pct": 10.05865323363574
+    },
+    {
+      "metric": "Relative reduction in MedAPE (%)",
+      "estimate": 20.45348455695604,
+      "CI_2.5pct": 16.705790805948325,
+      "CI_97.5pct": 24.23299283997859
+    }
+  ],
+  "subgroups": [
+    {
+      "group": "Common in original training",
+      "n": 1605,
+      "MedAPE_pct": 22.554442000912353,
+      "within30_pct": 60.373831775700936
+    },
+    {
+      "group": "Rare or unseen",
+      "n": 1824,
+      "MedAPE_pct": 44.023720378935835,
+      "within30_pct": 36.348684210526315
+    }
+  ],
+  "currencies": [
+    {
+      "currency": "AUD",
+      "n": 66,
+      "CatBoost_MedAPE_pct": 35.49603183715405,
+      "quadratic_MedAPE_pct": 34.363470722335435,
+      "native_MAE": 31619.594001025045
+    },
+    {
+      "currency": "CAD",
+      "n": 1270,
+      "CatBoost_MedAPE_pct": 40.035494481104365,
+      "quadratic_MedAPE_pct": 50.42760749630138,
+      "native_MAE": 29225.404605654447
+    },
+    {
+      "currency": "EUR",
+      "n": 496,
+      "CatBoost_MedAPE_pct": 18.049952897471965,
+      "quadratic_MedAPE_pct": 24.922203799442887,
+      "native_MAE": 7593.535204349769
+    },
+    {
+      "currency": "GBP",
+      "n": 357,
+      "CatBoost_MedAPE_pct": 57.51750233884967,
+      "quadratic_MedAPE_pct": 71.4663219042909,
+      "native_MAE": 7373.1311332410805
+    },
+    {
+      "currency": "USD",
+      "n": 1240,
+      "CatBoost_MedAPE_pct": 26.096217025749624,
+      "quadratic_MedAPE_pct": 30.40029246780212,
+      "native_MAE": 12793.029694260556
+    }
+  ],
+  "hours_missing_percent": 25.060156625978912,
+  "test_predictor_profiles_also_present_in_initial_training": 135,
+  "profile_overlap_interpretation": "Identical measured predictor profiles can describe different sales; no unique physical-asset identifier exists to establish identity. The overlap limits a claim of independently held-out assets.",
+  "source_archive_sha256": "89c3ff8891276e1c38a7e9934e8c70a5ef043a99aab786500d5c370fb55756c7",
+  "cleaned_input_sha256": "328c0621f0d73490f7d9279341b4c778929524127614b33cf4d49cdcac1dd587",
+  "model_load_warnings": [],
+  "scope": "Restored both archived fitted models and replayed all 3,429 heldout prices per model. Rebuilt the saved split and training-only transforms; recomputed 10,000 paired observation-bootstrap replicates. Source-data cleaning and full model selection were not rerun. No new temporal or asset-disjoint validation obtained."
+}
